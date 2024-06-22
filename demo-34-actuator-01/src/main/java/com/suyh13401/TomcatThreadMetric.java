@@ -1,9 +1,5 @@
-package com.huawei.arms.common.tomcat;
+package com.suyh13401;
 
-import com.huawei.arms.base.exception.JalorArmsException;
-import com.huawei.arms.common.slots.system.ArmsSystemErrorCountListener;
-import com.huawei.arms.common.slots.system.ArmsSystemRuleElementManager;
-import com.huawei.arms.common.slots.system.ArmsSystemStatusListener;
 import io.micrometer.core.instrument.binder.tomcat.TomcatMetrics;
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,23 +13,14 @@ import javax.management.ReflectionException;
 import java.util.Set;
 
 @Slf4j
-public class TomcatThreadMetricImpl implements TomcatThreadMetric {
+public class TomcatThreadMetric {
 
     private final MBeanServer beanServer;
 
-    public TomcatThreadMetricImpl() {
+    public TomcatThreadMetric() {
         beanServer = TomcatMetrics.getMBeanServer();
     }
 
-    @Override
-    public void init() {
-        log.info("TomcatThreadMetricImpl init");
-        ArmsSystemRuleElementManager.setTomcatThreadMetric(this);
-        ArmsSystemStatusListener.setTomcatThreadMetric(this);
-        ArmsSystemErrorCountListener.setTomcatThreadMetric(this);
-    }
-
-    @Override
     public int currentThreadsBusy() {
         try {
             Object currentThreadsBusy = getAttributeValue("currentThreadsBusy", ":type=ThreadPool,name=*");
@@ -47,7 +34,6 @@ public class TomcatThreadMetricImpl implements TomcatThreadMetric {
         return 0;
     }
 
-    @Override
     public int currentThreadMax() {
         try {
             Object currentThreadsMax = this.getAttributeValue("maxThreads", ":type=ThreadPool,name=*");
@@ -61,19 +47,17 @@ public class TomcatThreadMetricImpl implements TomcatThreadMetric {
         }
     }
 
-    @Override
     public int currentRequestTotalCount() {
         try {
             Object requestCountObj = this.getAttributeValue("requestCount", ":j2eeType=Servlet,name=*,*");
             return Integer.parseInt(requestCountObj.toString());
         } catch (AttributeNotFoundException | MBeanException | ReflectionException | InstanceNotFoundException exc) {
-            log.error("error count is error :", exc.getMessage());
+            log.error("error count is error", exc);
         }
         return 0;
     }
 
 
-    @Override
     public int currentTomcatRequestTotalCount() {
         try {
             Object obj = getAttributeValue("requestCount", ":type=GlobalRequestProcessor,name=*");
@@ -84,13 +68,12 @@ public class TomcatThreadMetricImpl implements TomcatThreadMetric {
         return 0;
     }
 
-    @Override
     public int currentErrorCount() {
         try {
             Object errorCountObj = this.getAttributeValue("errorCount", ":j2eeType=Servlet,name=*,*");
             return Integer.parseInt(errorCountObj.toString());
         } catch (AttributeNotFoundException | MBeanException | ReflectionException | InstanceNotFoundException exc) {
-            log.error("error count is error :", exc.getMessage());
+            log.error("error count is error", exc);
         }
         return 0;
     }
@@ -106,7 +89,7 @@ public class TomcatThreadMetricImpl implements TomcatThreadMetric {
             return new ObjectName("Tomcat" + namePatternSuffix);
         } catch (MalformedObjectNameException exception) {
             // should never happen
-            throw new JalorArmsException("Error registering Tomcat JMX based metrics", exception);
+            throw new RuntimeException("Error registering Tomcat JMX based metrics", exception);
         }
     }
 
