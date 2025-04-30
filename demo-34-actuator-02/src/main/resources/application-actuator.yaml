@@ -1,0 +1,11 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  server:
+    # 为actuator 单独开一个端口，这样不会跟web 端口冲突
+    port: 28991

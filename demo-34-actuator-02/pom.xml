@@ -12,6 +12,7 @@
         <maven.compiler.target>8</maven.compiler.target>
 
         <spring-boot.version>2.7.4</spring-boot.version>
+        <spring-boot-admin.version>2.6.10</spring-boot-admin.version>
 
         <druid.version>1.2.9</druid.version>
     </properties>
@@ -40,6 +41,7 @@
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
+            <version>7.7.3</version>
         </dependency>
 
         <dependency>
@@ -50,6 +52,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <version>${spring-boot-admin.version}</version>
         </dependency>
     </dependencies>
 

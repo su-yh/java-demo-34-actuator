@@ -18,6 +18,7 @@
     <modules>
         <module>demo-34-actuator-01</module>
         <module>demo-34-actuator-02</module>
+        <module>demo-34-admin-01</module>
     </modules>
 
 

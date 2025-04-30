@@ -1,0 +1,8 @@
+spring:
+  config:
+    import:
+      - application-actuator.yaml
+      - application-admin.yaml
+      - application-app.yaml
+      - application-datasource.yaml
+      - application-web.yaml

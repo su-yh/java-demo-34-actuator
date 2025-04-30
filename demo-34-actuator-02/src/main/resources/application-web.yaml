@@ -1,0 +1,8 @@
+server:
+  port: 3402
+  tomcat:
+    mbeanregistry:
+      # actuator 若要访问tomcat 的指标则该属性需要为true
+      enabled: true
+
+

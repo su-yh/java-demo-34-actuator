@@ -1,3 +1,5 @@
+
+
 spring:
   flyway:
     # 是否开户flywaydb, 默认值：true
@@ -29,23 +31,8 @@ spring:
   datasource:
     # 由于druid-spring-boot-starter 并没有按spring boot 的规范实现，所以这里并没有生效。
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://docker:3306/suyh_db_3402?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+    url: jdbc:mysql://qu-yun.isuyh.com:3306/suyh?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
     driverClassName: com.mysql.cj.jdbc.Driver
-    username: root
-    password: root
-server:
-  port: 3402
-  tomcat:
-    mbeanregistry:
-      # actuator 若要访问tomcat 的指标则该属性需要为true
-      enabled: true
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-  server:
-    # 为actuator 单独开一个端口，这样不会跟web 端口冲突
-    port: 28991
+    username: suyh
+    password: suyh
 
